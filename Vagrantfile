@@ -19,7 +19,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell" do |s|
-    s.inline = "sudo apt-get update && sudo apt-get install -y python-dev"
+    s.inline = "sudo apt-get update && sudo apt-get install -y python-dev && "
+    s.inline += "if ! sudo grep -q go/bin /etc/sudoers; then sudo sed -i 's$secure_path=\"$secure_path=\"/usr/local/go/bin:$' /etc/sudoers; fi"
   end
 
   config.vm.provision "ansible" do |ansible|
